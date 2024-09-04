@@ -7,5 +7,6 @@
 	]
 	:main ^:skip-aot lucos-scenes.core
 	:target-path "target/%s"
+	:uberjar-name "standalone.jar"
 	:profiles {:uberjar {:aot :all
 											 :jvm-opts ["-Dclojure.compiler.direct-linking=true"]}})

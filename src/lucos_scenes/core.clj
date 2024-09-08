@@ -4,6 +4,9 @@
 		[clojure.tools.logging :as log]
 		[ring.adapter.jetty :as jetty]
 		[ring.middleware.json :refer [wrap-json-response]]
+		[ring.middleware.resource :refer [wrap-resource]]
+		[ring.middleware.content-type :refer [wrap-content-type]]
+		[ring.middleware.not-modified :refer [wrap-not-modified]]
 		[ring.util.response :refer [not-found, resource-response, content-type]]
 	)
 )
@@ -14,9 +17,6 @@
 (defn handler [request]
 	(case (:uri request)
 		"/" (content-type (resource-response "index.html") "text/html")
-		"/icon.png" (content-type (resource-response "icon.png") "image/png")
-		"/style.css" (content-type (resource-response "style.css") "text/css")
-		"/lucos_navbar.js" (content-type (resource-response "lucos_navbar.js") "text/javascript")
 		"/_info" {
 			:status 200
 			:body {
@@ -35,7 +35,13 @@
 )
 
 (def app
-  (wrap-json-response handler))
+	(-> handler
+		(wrap-json-response)
+		(wrap-resource "public")
+		(wrap-content-type)
+		(wrap-not-modified)
+	)
+)
 
 (defn -main
 	[& args]

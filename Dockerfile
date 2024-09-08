@@ -5,7 +5,7 @@ WORKDIR /usr/src/app
 COPY project.clj .
 COPY src src
 COPY resources resources
-COPY --from=navbar lucos_navbar.js resources/
+COPY --from=navbar lucos_navbar.js resources/public/
 
 RUN lein uberjar
 

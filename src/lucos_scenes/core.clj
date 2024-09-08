@@ -1,6 +1,7 @@
 (ns lucos-scenes.core
 	(:gen-class)
 	(:require
+		[clojure.tools.logging :as log]
 		[ring.adapter.jetty :as jetty]
 		[ring.middleware.json :refer [wrap-json-response]]
 		[ring.util.response :refer [not-found, resource-response, content-type]]
@@ -39,7 +40,7 @@
 (defn -main
 	[& args]
 	(def PORT 8026)
-	(println "Starting server on port" PORT)
+	(log/info "Starting server on port" PORT)
 	(jetty/run-jetty
 		app
 		{:port PORT}

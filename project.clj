@@ -5,6 +5,8 @@
 		[org.clojure/clojure "1.11.1"]
 		[ring/ring-jetty-adapter "1.12.2"]
 		[ring/ring-json "0.5.1"]
+		[org.clojure/tools.logging "1.3.0"]
+		[org.slf4j/slf4j-simple "2.0.16"]
 	]
 	:main ^:skip-aot lucos-scenes.core
 	:target-path "target/%s"

@@ -1,7 +1,11 @@
+FROM lucas42/lucos_navbar:latest as navbar
+
 FROM clojure:temurin-22-lein-2.11.2-bookworm-slim AS build
-COPY project.clj /usr/src/app/
-COPY src /usr/src/app/src
 WORKDIR /usr/src/app
+COPY project.clj .
+COPY src src
+COPY resources resources
+COPY --from=navbar lucos_navbar.js resources/
 
 RUN lein uberjar
 

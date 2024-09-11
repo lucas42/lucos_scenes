@@ -8,34 +8,25 @@
 		[ring.middleware.content-type :refer [wrap-content-type]]
 		[ring.middleware.not-modified :refer [wrap-not-modified]]
 		[ring.util.response :refer [not-found, resource-response, content-type]]
+		[clojure.string :as string]
 	)
 )
 
+(load "v1Controller")
+(load "previewController")
+(load "infoController")
 
-
-
-(defn handler [request]
-	(case (:uri request)
-		"/" (content-type (resource-response "index.html") "text/html")
-		"/_info" {
-			:status 200
-			:body {
-				:system "lucos_scenes"
-				:title "Home Scenes"
-				:icon "/icon.png"
-				:ci {
-					:circle "gh/lucas42/lucos_scenes"
-				}
-				:network_only true
-				:show_on_homepage true
-			}
-		}
-		(not-found "Page Not Found")
+(defn frontController [request]
+	(cond
+		(string/starts-with? (:uri request) "/v1/") (v1Controller request)
+		(= (:uri request) "/") (previewController request)
+		(= (:uri request) "/_info") (infoController request)
+		:else (not-found "Page Not Found")
 	)
 )
 
 (def app
-	(-> handler
+	(-> frontController
 		(wrap-json-response)
 		(wrap-resource "public")
 		(wrap-content-type)

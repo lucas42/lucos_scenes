@@ -1,6 +1,7 @@
 (in-ns 'lucos-scenes.core)
 
 (load "utils")
+(load "inputs")
 
 (defn infoController [request]
 	(if (= (:request-method request) :get)
@@ -15,6 +16,12 @@
 				}
 				:network_only true
 				:show_on_homepage true
+				:metrics {
+					:input-count {
+						:techDetail "Number of input devices currently configured for setting scenes"
+						:value (count inputs)
+					}
+				}
 			}
 		}
 		(notAllowed :get)

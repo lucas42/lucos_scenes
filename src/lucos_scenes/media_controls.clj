@@ -9,13 +9,17 @@
 
 (defn playOnDevice [deviceName]
 	(def deviceUuid (getDeviceUuid deviceName))
-	(log/info "//TODO: move playback to device" deviceUuid)
+	(log/info "Move playback to device" deviceName deviceUuid)
+	(client/put "https://ceol.l42.eu/v3/current-device" {:body deviceUuid})
+	(client/put "https://ceol.l42.eu/v3/is-playing" {:body "true"})
 )
 
 (defn pause []
-	(log/info "//TODO: pause playback")
+	(log/info "Pause playback")
+	(client/put "https://ceol.l42.eu/v3/is-playing" {:body "false"})
 )
 
 (defn skipTrack []
-	(log/info "//TODO: skip to next track")
+	(log/info "Skip to next track")
+	(client/post "https://ceol.l42.eu/v3/skip-track")
 )

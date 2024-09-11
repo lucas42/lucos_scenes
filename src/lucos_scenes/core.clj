@@ -9,6 +9,7 @@
 		[ring.middleware.not-modified :refer [wrap-not-modified]]
 		[ring.util.response :refer [not-found, resource-response, content-type]]
 		[clojure.string :as string]
+		[clj-http.client :as client]
 	)
 )
 

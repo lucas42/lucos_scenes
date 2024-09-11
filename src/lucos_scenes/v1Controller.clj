@@ -1,43 +1,24 @@
 (in-ns 'lucos-scenes.core)
 
 (load "utils")
-(load "media_controls")
+(load "inputs")
 
 (defn v1Controller [request]
-	(let [[input action] (string/split (string/replace-first (:uri request) #"/v1/", "") #"/")]
+	(let [[input-key action-key] (string/split (string/replace-first (:uri request) #"/v1/", "") #"/")]
 		(if (= (:request-method request) :post)
-			(case input
-				"music" (case action
-					"click" (do
-					 (playOnDevice "living-room")
-					 (accepted)
+			(if (contains? inputs input-key)
+				(do
+					(def input (get inputs input-key))
+					(if (contains? (:actions input) action-key)
+						(do
+							(def action (get (:actions input) action-key))
+							(action)
+							(accepted)
+						)
+						(not-found (str "Action \"" action-key "\" Not Found\n"))
 					)
-					"double-click" (do
-					 (skipTrack)
-					 (accepted)
-					)
-					"hold" (do
-					 (pause)
-					 (accepted)
-					)
-					(not-found "Action Not Found")
 				)
-				"bedside" (case action
-					"click" (do
-					 (playOnDevice "bedroom")
-					 (accepted)
-					)
-					"double-click" (do
-					 (skipTrack)
-					 (accepted)
-					)
-					"hold" (do
-					 (pause)
-					 (accepted)
-					)
-					(not-found "Action Not Found")
-				)
-				(not-found "Input Not Found")
+				(not-found (str "Input \"" input-key "\" Not Found\n"))
 			)
 			(notAllowed :post)
 		)

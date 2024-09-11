@@ -6,3 +6,5 @@ services:
       - "8026:8026"
     image: lucas42/lucos_scenes
     restart: always
+    environment:
+      - MEDIA_MANAGER=https://ceol.l42.eu/v3

@@ -7,19 +7,21 @@
 	)
 )
 
+(def MEDIA_MANAGER (System/getenv "MEDIA_MANAGER"))
+
 (defn playOnDevice [deviceName]
 	(def deviceUuid (getDeviceUuid deviceName))
 	(log/info "Move playback to device" deviceName deviceUuid)
-	(client/put "https://ceol.l42.eu/v3/current-device" {:body deviceUuid})
-	(client/put "https://ceol.l42.eu/v3/is-playing" {:body "true"})
+	(client/put (str MEDIA_MANAGER "/current-device") {:body deviceUuid})
+	(client/put (str MEDIA_MANAGER "/is-playing") {:body "true"})
 )
 
 (defn pause []
 	(log/info "Pause playback")
-	(client/put "https://ceol.l42.eu/v3/is-playing" {:body "false"})
+	(client/put (str MEDIA_MANAGER "/is-playing") {:body "false"})
 )
 
 (defn skipTrack []
 	(log/info "Skip to next track")
-	(client/post "https://ceol.l42.eu/v3/skip-track")
+	(client/post (str MEDIA_MANAGER "/skip-track"))
 )

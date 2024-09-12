@@ -2,8 +2,9 @@
 
 (defn getDeviceUuid [deviceName]
 	(case deviceName
-		"bedroom" "bc828821-649a-46bd-9624-7ef668022549"
-		"living-room" "02db18a0-b29d-4eb1-be6d-e7242de6496e"
+		:bedroom "bc828821-649a-46bd-9624-7ef668022549"
+		:living-room "02db18a0-b29d-4eb1-be6d-e7242de6496e"
+		:phone "9131f2f9-4db7-4471-ad81-f5cd06c2c3ca"
 	)
 )
 
@@ -24,4 +25,9 @@
 (defn skipTrack []
 	(log/info "Skip to next track")
 	(client/post (str MEDIA_MANAGER "/skip-track"))
+)
+
+(defn playCollection [collectionSlug]
+	(log/info "Play Collection" collectionSlug)
+	(client/put (str MEDIA_MANAGER "/current-collection") {:body collectionSlug})
 )

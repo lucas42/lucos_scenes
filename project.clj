@@ -8,6 +8,7 @@
 		[org.clojure/tools.logging "1.3.0"]
 		[org.slf4j/slf4j-simple "2.0.16"]
 		[clj-http "3.13.0"]
+		[selmer "1.12.61"]
 	]
 	:main ^:skip-aot lucos-scenes.core
 	:target-path "target/%s"

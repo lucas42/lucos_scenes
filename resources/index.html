@@ -10,7 +10,30 @@
 	</head>
 	<body>
 		<lucos-navbar>Scenes</lucos-navbar>
-		<div>//TODO: Actually add some content</div>
+		<main>
+			{% for input-name,input in inputs %}
+				<h2>{{input-name}} Actions</h2>
+				<ul>
+					{% for action-name, function in input.actions %}
+					<li>
+						<form action="/v1/{{input-name}}/{{action-name}}" method="post">
+							<input type="submit" value="{{action-name}}" />
+						</form>
+					</li>
+					{% endfor %}
+				</ul>
+			{% endfor %}
+		</main>
 		<script src="/lucos_navbar.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			document.querySelectorAll("form").forEach(form => {
+				form.addEventListener("submit", async event => {
+					event.preventDefault();
+					form.dataset.loading = true;
+					await fetch(form.action, {method: form.method});
+					delete form.dataset.loading;
+				});
+			});
+		</script>
 	</body>
 </html>

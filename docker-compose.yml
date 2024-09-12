@@ -2,6 +2,7 @@ version: '3'
 services:
   lucos_scenes:
     build: .
+    container_name: lucos_scenes
     ports:
       - "8026:8026"
     image: lucas42/lucos_scenes

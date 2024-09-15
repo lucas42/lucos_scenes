@@ -13,16 +13,16 @@
 	}
 	"bedside" {
 		:actions {
-			"click"        (fn [] (playCollection (getCollectionForBedroom)) (playOnDevice :bedroom))
+			"click"        (fn [] (playCollectionAtVolumeOnDevice (getCollectionForBedroom) (getVolumeForBedroom) :bedroom))
 			"double-click" skipTrack
 			"hold"         pause
 		}
 	}
 	"bathroom" {
 		:actions {
-			"click"        (fn [] (playCollection (getCollectionForShower)) (playOnDevice :phone))
+			"click"        (fn [] (playCollectionOnDevice (getCollectionForShower) :phone))
 			"double-click" skipTrack
-			"hold"         (fn [] (playCollection "bath") (playOnDevice :phone))
+			"hold"         (fn [] (playCollectionOnDevice "bath" :phone))
 		}
 	}
 })

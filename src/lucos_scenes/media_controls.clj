@@ -31,3 +31,22 @@
 	(log/info "Play Collection" collectionSlug)
 	(client/put (str MEDIA_MANAGER "/current-collection") {:body collectionSlug})
 )
+
+(defn setVolume [volume]
+	(log/info "Play Collection" volume)
+	(client/put (str MEDIA_MANAGER "/volume") {:body (str volume)})
+)
+
+
+
+;; Convenience Methods
+(defn playCollectionOnDevice [collectionSlug deviceName]
+	(playCollection collectionSlug)
+	(playOnDevice deviceName)
+)
+
+(defn playCollectionAtVolumeOnDevice [collectionSlug volume deviceName]
+	(playCollection collectionSlug)
+	(setVolume volume)
+	(playOnDevice deviceName)
+)

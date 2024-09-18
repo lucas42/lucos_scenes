@@ -14,28 +14,28 @@
 (defn playOnDevice [deviceName]
 	(def deviceUuid (getDeviceUuid deviceName))
 	(log/info "Move playback to device" deviceName deviceUuid)
-	(client/put (str MEDIA_MANAGER "/current-device") {:body deviceUuid :headers{:Authorization (str "Key " MEDIA_MANAGER_API_KEY)}})
-	(client/put (str MEDIA_MANAGER "/is-playing") {:body "true" :headers{:Authorization (str "Key " MEDIA_MANAGER_API_KEY)}})
+	(client/put (str MEDIA_MANAGER "/current-device") {:body deviceUuid :headers{:Authorization (str "Key " MEDIA_MANAGER_API_KEY)} :unexceptional-status #{204}})
+	(client/put (str MEDIA_MANAGER "/is-playing") {:body "true" :headers{:Authorization (str "Key " MEDIA_MANAGER_API_KEY)} :unexceptional-status #{204}})
 )
 
 (defn pause []
 	(log/info "Pause playback")
-	(client/put (str MEDIA_MANAGER "/is-playing") {:body "false" :headers{:Authorization (str "Key " MEDIA_MANAGER_API_KEY)}})
+	(client/put (str MEDIA_MANAGER "/is-playing") {:body "false" :headers{:Authorization (str "Key " MEDIA_MANAGER_API_KEY)} :unexceptional-status #{204}})
 )
 
 (defn skipTrack []
 	(log/info "Skip to next track")
-	(client/post (str MEDIA_MANAGER "/skip-track"){:headers{:Authorization (str "Key " MEDIA_MANAGER_API_KEY)}})
+	(client/post (str MEDIA_MANAGER "/skip-track"){:headers{:Authorization (str "Key " MEDIA_MANAGER_API_KEY)} :unexceptional-status #{204}})
 )
 
 (defn playCollection [collectionSlug]
 	(log/info "Play Collection" collectionSlug)
-	(client/put (str MEDIA_MANAGER "/current-collection") {:body collectionSlug :headers{:Authorization (str "Key " MEDIA_MANAGER_API_KEY)}})
+	(client/put (str MEDIA_MANAGER "/current-collection") {:body collectionSlug :headers{:Authorization (str "Key " MEDIA_MANAGER_API_KEY)} :unexceptional-status #{204}})
 )
 
 (defn setVolume [volume]
 	(log/info "Play Collection" volume)
-	(client/put (str MEDIA_MANAGER "/volume") {:body (str volume) :headers{:Authorization (str "Key " MEDIA_MANAGER_API_KEY)}})
+	(client/put (str MEDIA_MANAGER "/volume") {:body (str volume) :headers{:Authorization (str "Key " MEDIA_MANAGER_API_KEY)} :unexceptional-status #{204}})
 )
 
 

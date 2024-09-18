@@ -8,4 +8,5 @@ services:
     image: lucas42/lucos_scenes
     restart: always
     environment:
-      - MEDIA_MANAGER=https://ceol.l42.eu/v3
+      - MEDIA_MANAGER=http://ceol.l42.eu/v3
+      - KEY_LUCOS_MEDIA_MANAGER

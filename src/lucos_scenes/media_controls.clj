@@ -9,32 +9,33 @@
 )
 
 (def MEDIA_MANAGER (System/getenv "MEDIA_MANAGER"))
+(def MEDIA_MANAGER_API_KEY (System/getenv "KEY_LUCOS_MEDIA_MANAGER"))
 
 (defn playOnDevice [deviceName]
 	(def deviceUuid (getDeviceUuid deviceName))
 	(log/info "Move playback to device" deviceName deviceUuid)
-	(client/put (str MEDIA_MANAGER "/current-device") {:body deviceUuid})
-	(client/put (str MEDIA_MANAGER "/is-playing") {:body "true"})
+	(client/put (str MEDIA_MANAGER "/current-device") {:body deviceUuid :headers{:Authorization (str "Key " MEDIA_MANAGER_API_KEY)}})
+	(client/put (str MEDIA_MANAGER "/is-playing") {:body "true" :headers{:Authorization (str "Key " MEDIA_MANAGER_API_KEY)}})
 )
 
 (defn pause []
 	(log/info "Pause playback")
-	(client/put (str MEDIA_MANAGER "/is-playing") {:body "false"})
+	(client/put (str MEDIA_MANAGER "/is-playing") {:body "false" :headers{:Authorization (str "Key " MEDIA_MANAGER_API_KEY)}})
 )
 
 (defn skipTrack []
 	(log/info "Skip to next track")
-	(client/post (str MEDIA_MANAGER "/skip-track"))
+	(client/post (str MEDIA_MANAGER "/skip-track"){:headers{:Authorization (str "Key " MEDIA_MANAGER_API_KEY)}})
 )
 
 (defn playCollection [collectionSlug]
 	(log/info "Play Collection" collectionSlug)
-	(client/put (str MEDIA_MANAGER "/current-collection") {:body collectionSlug})
+	(client/put (str MEDIA_MANAGER "/current-collection") {:body collectionSlug :headers{:Authorization (str "Key " MEDIA_MANAGER_API_KEY)}})
 )
 
 (defn setVolume [volume]
 	(log/info "Play Collection" volume)
-	(client/put (str MEDIA_MANAGER "/volume") {:body (str volume)})
+	(client/put (str MEDIA_MANAGER "/volume") {:body (str volume) :headers{:Authorization (str "Key " MEDIA_MANAGER_API_KEY)}})
 )
 
 

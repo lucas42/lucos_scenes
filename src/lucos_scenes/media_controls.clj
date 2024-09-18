@@ -11,31 +11,38 @@
 (def MEDIA_MANAGER (System/getenv "MEDIA_MANAGER"))
 (def MEDIA_MANAGER_API_KEY (System/getenv "KEY_LUCOS_MEDIA_MANAGER"))
 
+(defn manager_put [path body]
+	(client/put (str MEDIA_MANAGER path) {:body body :headers{:Authorization (str "Key " MEDIA_MANAGER_API_KEY)} :unexceptional-status #{204}})
+)
+(defn manager_post [path]
+	(client/post (str MEDIA_MANAGER path) {:headers{:Authorization (str "Key " MEDIA_MANAGER_API_KEY)} :unexceptional-status #{204}})
+)
+
 (defn playOnDevice [deviceName]
 	(def deviceUuid (getDeviceUuid deviceName))
 	(log/info "Move playback to device" deviceName deviceUuid)
-	(client/put (str MEDIA_MANAGER "/current-device") {:body deviceUuid :headers{:Authorization (str "Key " MEDIA_MANAGER_API_KEY)} :unexceptional-status #{204}})
-	(client/put (str MEDIA_MANAGER "/is-playing") {:body "true" :headers{:Authorization (str "Key " MEDIA_MANAGER_API_KEY)} :unexceptional-status #{204}})
+	(manager_put "/current-device" deviceUuid)
+	(manager_put "/is-playing" "true")
 )
 
 (defn pause []
 	(log/info "Pause playback")
-	(client/put (str MEDIA_MANAGER "/is-playing") {:body "false" :headers{:Authorization (str "Key " MEDIA_MANAGER_API_KEY)} :unexceptional-status #{204}})
+	(manager_put "/is-playing" "false")
 )
 
 (defn skipTrack []
 	(log/info "Skip to next track")
-	(client/post (str MEDIA_MANAGER "/skip-track"){:headers{:Authorization (str "Key " MEDIA_MANAGER_API_KEY)} :unexceptional-status #{204}})
+	(manager_post "/skip-track")
 )
 
 (defn playCollection [collectionSlug]
 	(log/info "Play Collection" collectionSlug)
-	(client/put (str MEDIA_MANAGER "/current-collection") {:body collectionSlug :headers{:Authorization (str "Key " MEDIA_MANAGER_API_KEY)} :unexceptional-status #{204}})
+	(manager_put "/current-collection" collectionSlug)
 )
 
 (defn setVolume [volume]
 	(log/info "Play Collection" volume)
-	(client/put (str MEDIA_MANAGER "/volume") {:body (str volume) :headers{:Authorization (str "Key " MEDIA_MANAGER_API_KEY)} :unexceptional-status #{204}})
+	(manager_put "/volume" (str volume))
 )
 
 

@@ -27,7 +27,7 @@
 ;; Decides on approprate volume to play in bedroom, based on time of day
 (defn getVolumeForBedroom []
 	(case (timeOfDayInLondon)
-		:night 0.1
+		:night 0.2
 		:morning 0.5
 		:afternoon 0.8
 		:evening 0.7

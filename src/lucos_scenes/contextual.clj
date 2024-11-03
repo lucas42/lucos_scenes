@@ -12,11 +12,20 @@
 	)
 )
 
+(defn weekend? []
+	(def currentTime (-> (jt/zoned-date-time (jt/zone-id "Europe/London"))))
+	(cond
+		(jt/weekend? currentTime) true
+		(jt/friday? currentTime) (> (-> currentTime .getHour) 17)
+		:else false
+	)
+)
+
 ;; Decides on an approprate collection to play in bedroom, based on time of day
 (defn getCollectionForBedroom []
 	(case (timeOfDayInLondon)
 		:night "sleep"
-		:morning "waking"
+		:morning (if (weekend?) "waking-weekend" "waking")
 		:afternoon "chill"
 		:evening "chill"
 		"chill"

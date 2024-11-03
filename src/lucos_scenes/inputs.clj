@@ -6,7 +6,7 @@
 (def inputs {
 	"music" {
 		:actions {
-			"click"        (fn [] (playOnDevice :living-room))
+			"click"        (fn [] (playCollectionOnDevice "all" :living-room))
 			"double-click" skipTrack
 			"hold"         pause
 		}

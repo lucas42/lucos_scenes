@@ -37,7 +37,7 @@
 (defn getVolumeForBedroom []
 	(case (timeOfDayInLondon)
 		:night 0.2
-		:morning 0.5
+		:morning 0.4
 		:afternoon 0.8
 		:evening 0.7
 		0.5

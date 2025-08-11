@@ -4,7 +4,7 @@
 	(case deviceName
 		:bedroom "bc828821-649a-46bd-9624-7ef668022549"
 		:living-room "02db18a0-b29d-4eb1-be6d-e7242de6496e"
-		:phone "d6fbb1f8-2f4e-404f-97c2-f91d1e6e905c"
+		:phone "e15dd88e-14a2-48ba-9e3c-a19fd2eb11c5"
 	)
 )
 

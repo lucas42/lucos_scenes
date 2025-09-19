@@ -1,0 +1,22 @@
+{
+	"name": "lucOS Scenes",
+	"short_name": "Scenes",
+	"start_url": "/",
+	"display": "standalone",
+	"theme_color": "#000",
+	"background_color": "#acf",
+	"icons":[
+		{
+			"src": "/icon.png",
+			"sizes": "200x200",
+			"type": "image/png",
+			"purpose": "any monochrome"
+		},
+		{
+			"src": "/maskable_icon.png",
+			"sizes": "307x307",
+			"type": "image/png",
+			"purpose": "maskable"
+		}
+	]
+}

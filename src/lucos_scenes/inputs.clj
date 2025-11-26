@@ -25,4 +25,10 @@
 			"hold"         (fn [] (playCollectionOnDevice "bath" :phone))
 		}
 	}
+	"hallway" {
+		:actions {
+			"big-click"   (fn [] (switchDevice :living-room)) ;; Only switch device, so will only play if already playing elsewhere (eg on phone)
+			"small-click" pause ;; Pauses everywhere for now.  TODO: perhaps don't pause if playing on phone?
+		}
+	}
 })

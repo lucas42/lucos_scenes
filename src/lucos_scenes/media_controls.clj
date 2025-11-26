@@ -18,10 +18,14 @@
 	(client/post (str MEDIA_MANAGER path) {:headers{:Authorization (str "Key " MEDIA_MANAGER_API_KEY)} :unexceptional-status #{204}})
 )
 
-(defn playOnDevice [deviceName]
+(defn switchDevice [deviceName]
 	(def deviceUuid (getDeviceUuid deviceName))
 	(log/info "Move playback to device" deviceName deviceUuid)
 	(manager_put "/current-device" deviceUuid)
+)
+
+(defn playOnDevice [deviceName]
+	(switchDevice deviceName)
 	(manager_put "/is-playing" "true")
 )
 

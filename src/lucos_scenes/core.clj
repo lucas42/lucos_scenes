@@ -38,7 +38,7 @@
 
 (defn -main
 	[& args]
-	(def PORT 8026)
+	(def PORT (Integer/valueOf (System/getenv "PORT")))
 	(log/info "Starting server on port" PORT)
 	(jetty/run-jetty
 		app

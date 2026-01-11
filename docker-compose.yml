@@ -3,9 +3,10 @@ services:
     build: .
     container_name: lucos_scenes
     ports:
-      - "8026:8026"
+      - $PORT:$PORT
     image: lucas42/lucos_scenes
     restart: always
     environment:
       - MEDIA_MANAGER=https://ceol.l42.eu/v3
       - KEY_LUCOS_MEDIA_MANAGER
+      - PORT

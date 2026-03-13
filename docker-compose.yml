@@ -6,6 +6,12 @@ services:
       - $PORT:$PORT
     image: lucas42/lucos_scenes
     restart: always
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:${PORT}/_info"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
     environment:
       - MEDIA_MANAGER=https://ceol.l42.eu/v3
       - KEY_LUCOS_MEDIA_MANAGER

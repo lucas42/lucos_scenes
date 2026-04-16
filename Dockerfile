@@ -10,5 +10,7 @@ COPY --from=navbar lucos_navbar.js resources/public/
 RUN lein uberjar
 
 FROM eclipse-temurin:22-jdk-alpine
+ARG VERSION
+ENV VERSION=$VERSION
 COPY --from=build /usr/src/app/target/uberjar/standalone.jar standalone.jar
 CMD ["java", "-jar", "standalone.jar"]

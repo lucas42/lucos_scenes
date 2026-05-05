@@ -45,7 +45,7 @@
 )
 
 (defn setVolume [volume]
-	(log/info "Play Collection" volume)
+	(log/info "Set Volume" volume)
 	(manager_put "/volume" (str volume))
 )
 

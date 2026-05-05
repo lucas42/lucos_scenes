@@ -8,6 +8,7 @@
 		[org.clojure/tools.logging "1.3.0"]
 		[org.slf4j/slf4j-simple "2.0.16"]
 		[clj-http "3.13.0"]
+		[cheshire "5.10.0"]
 		[selmer "1.12.61"]
 		[clojure.java-time "1.4.2"]
 	]

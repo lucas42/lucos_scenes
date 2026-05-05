@@ -11,8 +11,16 @@
 					(def input (get inputs input-key))
 					(if (contains? (:actions input) action-key)
 						(do
-							(def action (get (:actions input) action-key))
-							(action)
+							(def action-def (get (:actions input) action-key))
+							(def action-fn (:fn action-def))
+							(def extra-fields (or (when-let [ff (:fields-fn action-def)] (ff))
+							                      (:fields action-def)
+							                      {}))
+							(action-fn)
+							(loganne/post-event
+								"sceneActivated"
+								(str "Scene '" input-key "' activated by '" action-key "'")
+								(merge {:scene input-key :action action-key} extra-fields))
 							(accepted)
 						)
 						(not-found (str "Action \"" action-key "\" Not Found\n"))

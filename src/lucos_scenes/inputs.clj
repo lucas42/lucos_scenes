@@ -6,29 +6,34 @@
 (def inputs {
 	"music" {
 		:actions {
-			"click"        (fn [] (playCollectionOnDevice "all" :living-room))
-			"double-click" skipTrack
-			"hold"         pause
+			"click"        {:fn (fn [] (playCollectionOnDevice "all" :living-room))
+			               :fields {:targetCollection "all" :targetDevice "living-room"}}
+			"double-click" {:fn skipTrack}
+			"hold"         {:fn pause}
 		}
 	}
 	"bedside" {
 		:actions {
-			"click"        (fn [] (playCollectionAtVolumeOnDevice (getCollectionForBedroom) (getVolumeForBedroom) :bedroom))
-			"double-click" skipTrack
-			"hold"         pause
+			"click"        {:fn (fn [] (playCollectionAtVolumeOnDevice (getCollectionForBedroom) (getVolumeForBedroom) :bedroom))
+			               :fields-fn (fn [] {:targetCollection (getCollectionForBedroom) :targetDevice "bedroom"})}
+			"double-click" {:fn skipTrack}
+			"hold"         {:fn pause}
 		}
 	}
 	"bathroom" {
 		:actions {
-			"click"        (fn [] (playCollectionOnDevice (getCollectionForShower) :phone))
-			"double-click" skipTrack
-			"hold"         (fn [] (playCollectionOnDevice "bath" :phone))
+			"click"        {:fn (fn [] (playCollectionOnDevice (getCollectionForShower) :phone))
+			               :fields-fn (fn [] {:targetCollection (getCollectionForShower) :targetDevice "phone"})}
+			"double-click" {:fn skipTrack}
+			"hold"         {:fn (fn [] (playCollectionOnDevice "bath" :phone))
+			               :fields {:targetCollection "bath" :targetDevice "phone"}}
 		}
 	}
 	"hallway" {
 		:actions {
-			"big-click"   (fn [] (switchDevice :living-room)) ;; Only switch device, so will only play if already playing elsewhere (eg on phone)
-			"small-click" pause ;; Pauses everywhere for now.  TODO: perhaps don't pause if playing on phone?
+			"big-click"   {:fn (fn [] (switchDevice :living-room))
+			              :fields {:targetDevice "living-room"}}
+			"small-click" {:fn pause}
 		}
 	}
 })

@@ -19,9 +19,10 @@
 )
 
 (defn switchDevice [deviceName]
-	(def deviceUuid (getDeviceUuid deviceName))
-	(log/info "Move playback to device" deviceName deviceUuid)
-	(manager_put "/current-device" deviceUuid)
+	(let [deviceUuid (getDeviceUuid deviceName)]
+		(log/info "Move playback to device" deviceName deviceUuid)
+		(manager_put "/current-device" deviceUuid)
+	)
 )
 
 (defn playOnDevice [deviceName]

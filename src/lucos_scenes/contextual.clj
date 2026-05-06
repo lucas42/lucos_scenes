@@ -2,22 +2,24 @@
 
 ;; Returns a keyword representing the rough time of day in London
 (defn timeOfDayInLondon []
-	(def currentHour (-> (jt/zoned-date-time (jt/zone-id "Europe/London")) .getHour))
-	(condp > currentHour
-		5  :night
-		12 :morning
-		18 :afternoon
-		21 :evening
-		24 :night
+	(let [currentHour (-> (jt/zoned-date-time (jt/zone-id "Europe/London")) .getHour)]
+		(condp > currentHour
+			5  :night
+			12 :morning
+			18 :afternoon
+			21 :evening
+			24 :night
+		)
 	)
 )
 
 (defn weekend? []
-	(def currentTime (-> (jt/zoned-date-time (jt/zone-id "Europe/London"))))
-	(cond
-		(jt/weekend? currentTime) true
-		(jt/friday? currentTime) (> (-> currentTime .getHour) 17)
-		:else false
+	(let [currentTime (-> (jt/zoned-date-time (jt/zone-id "Europe/London")))]
+		(cond
+			(jt/weekend? currentTime) true
+			(jt/friday? currentTime) (> (-> currentTime .getHour) 17)
+			:else false
+		)
 	)
 )
 

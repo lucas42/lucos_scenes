@@ -7,11 +7,9 @@
 	(let [[input-key action-key] (string/split (string/replace-first (:uri request) #"/v1/", "") #"/")]
 		(if (= (:request-method request) :post)
 			(if (contains? inputs input-key)
-				(do
-					(def input (get inputs input-key))
+				(let [input (get inputs input-key)]
 					(if (contains? (:actions input) action-key)
-						(do
-							(def action (get (:actions input) action-key))
+						(let [action (get (:actions input) action-key)]
 							(action)
 							(accepted)
 						)

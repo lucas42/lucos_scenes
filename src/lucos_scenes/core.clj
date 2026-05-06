@@ -38,10 +38,11 @@
 
 (defn -main
 	[& args]
-	(def PORT (Integer/valueOf (System/getenv "PORT")))
-	(log/info "Starting server on port" PORT)
-	(jetty/run-jetty
-		app
-		{:port PORT}
+	(let [PORT (Integer/valueOf (System/getenv "PORT"))]
+		(log/info "Starting server on port" PORT)
+		(jetty/run-jetty
+			app
+			{:port PORT}
+		)
 	)
 )

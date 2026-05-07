@@ -20,7 +20,7 @@
 
 (defn switchDevice [deviceName]
 	(let [deviceUuid (getDeviceUuid deviceName)]
-		(log/info "Move playback to device" deviceName deviceUuid)
+		(log/info (str "action=switchDevice device=" deviceName " uuid=" deviceUuid))
 		(manager_put "/current-device" deviceUuid)
 	)
 )
@@ -31,22 +31,22 @@
 )
 
 (defn pause []
-	(log/info "Pause playback")
+	(log/info "action=pause")
 	(manager_put "/is-playing" "false")
 )
 
 (defn skipTrack []
-	(log/info "Skip to next track")
+	(log/info "action=skipTrack")
 	(manager_post "/skip-track")
 )
 
 (defn playCollection [collectionSlug]
-	(log/info "Play Collection" collectionSlug)
+	(log/info (str "action=playCollection collection=" collectionSlug))
 	(manager_put "/current-collection" collectionSlug)
 )
 
 (defn setVolume [volume]
-	(log/info "Set Volume" volume)
+	(log/info (str "action=setVolume volume=" volume))
 	(manager_put "/volume" (str volume))
 )
 

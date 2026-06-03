@@ -16,6 +16,7 @@
 				}
 				:network_only true
 				:show_on_homepage true
+				:checks {}
 				:metrics {
 					:input-count {
 						:techDetail "Number of input devices currently configured for setting scenes"

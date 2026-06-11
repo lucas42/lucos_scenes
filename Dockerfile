@@ -1,6 +1,6 @@
 FROM lucas42/lucos_navbar:2.1.1 AS navbar
 
-FROM clojure:temurin-22-lein-2.11.2-bookworm-slim AS build
+FROM clojure:temurin-26-lein-2.12.0-bookworm-slim AS build
 WORKDIR /usr/src/app
 COPY project.clj .
 COPY src src
@@ -9,7 +9,7 @@ COPY --from=navbar lucos_navbar.js resources/public/
 
 RUN lein uberjar
 
-FROM eclipse-temurin:22-jdk-alpine
+FROM eclipse-temurin:25-jdk-alpine
 ARG VERSION
 ENV VERSION=$VERSION
 COPY --from=build /usr/src/app/target/uberjar/standalone.jar standalone.jar

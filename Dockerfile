@@ -1,4 +1,4 @@
-FROM lucas42/lucos_navbar:2.1.1 AS navbar
+FROM lucas42/lucos_navbar:2.1.73 AS navbar
 
 FROM clojure:temurin-26-lein-2.12.0-bookworm-slim AS build
 WORKDIR /usr/src/app

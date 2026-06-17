@@ -1,6 +1,6 @@
-FROM lucas42/lucos_navbar:2.1.73 AS navbar
+FROM lucas42/lucos_navbar:2.1.74 AS navbar
 
-FROM clojure:temurin-26-lein-2.12.0-bookworm-slim AS build
+FROM clojure:temurin-26-lein-2.13.0-bookworm-slim AS build
 WORKDIR /usr/src/app
 COPY project.clj .
 COPY src src
